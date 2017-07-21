@@ -10,9 +10,16 @@ environment:
 
 before_build:
   - cmd: set PATH=%CONDA%;%CONDA%\Scripts;%CONDA%\Library\bin;%PATH%
+  - cmd: conda config --add channels conda-forge
+  - cmd: conda config --add channels bioconda
+  - cmd: conda config --add channels csachs
   - cmd: conda update -y conda
 
 build_script:
+  - cmd: conda install molyso
+  - cmd: python -m molyso
+  - cmd: python setup.py install
+  - cmd: python -m mycelyso
   - cmd: python -V
 
 after_build:
