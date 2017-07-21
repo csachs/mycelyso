@@ -7,9 +7,6 @@ clone_depth: 1
 environment:
   CONDA: C:\Miniconda36-x64
 
-cache:
-  - C:\Miniconda36-x64\pkgs
-
 before_build:
   - cmd: set PATH=%CONDA%;%CONDA%\Scripts;%CONDA%\Library\bin;%PATH%
   - cmd: conda config --add channels conda-forge
@@ -23,10 +20,13 @@ build_script:
   - cmd: conda install -y molyso
   - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm mfisp-boxdetection
   - cmd: python setup.py install
-  - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso > mycelyso.py
-  - cmd: "echo if __name__ == '__main__': >> mycelyso.py"
-  - cmd: echo     Mycelyso().main() >> mycelyso.py"
-  - cmd: pyinstaller mycelyso.py
+  - cmd: del %CONDA%\Scripts\molyso.py
+  - cmd: echo import molyso >> runmycelyso.py
+  - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso >> runmycelyso.py
+  - cmd: "echo if __name__ == '__main__': >> runmycelyso.py"
+  - cmd: echo     Mycelyso().main() >> runmycelyso.py"
+  - cmd: pyinstaller runmycelyso.py -n mycelyso --exclude-module tcl --exclude-module tk --exclude-module _tkinter --exclude-module tkinter --exclude-module Tkinter --exclude-module opencv --exclude-module PyQt5 --exclude-module PySide --exclude-module cv2
+  - cmd: rd /s /q .\dist\mycelyso\Include
 
 after_build:
   - cmd: >
@@ -38,5 +38,5 @@ after_build:
 artifacts:
   - path: mycelyso-windows64.zip
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
