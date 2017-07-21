@@ -1,0 +1,28 @@
+version: 0.0.1-{build}
+
+image: Visual Studio 2017
+
+clone_depth: 1
+
+environment:
+  ARTIFACT: mycelyso-windows64.zip
+  CONDA: C:\Miniconda36-x64
+
+
+before_build:
+  - cmd: set PATH=%PATH%;%CONDA%;%CONDA%\Scripts;%CONDA%\Library\bin
+  - cmd: conda update anaconda
+
+build_script:
+  - cmd: python -V
+
+after_build:
+  - cmd: >
+          7z
+          a
+          %ARTIFACT%
+          ".appveyor.yml"
+
+artifacts:
+  - path: %ARTIFACT%
+
