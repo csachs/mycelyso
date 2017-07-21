@@ -21,7 +21,7 @@ build_script:
   - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm mfisp-boxdetection pyasn1
   - cmd: python setup.py install
   - cmd: del %CONDA%\Scripts\molyso.py
-  #
+  # this is the starter, full of implicit exports to steer pyinstaller into the right direction
   - cmd: echo import multiprocessing >> runmycelyso.py
   - cmd: echo import pyasn1 >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.encoder import encode as der_encode >> runmycelyso.py
@@ -35,7 +35,8 @@ build_script:
   - cmd: echo     multiprocessing.freeze_support() >> runmycelyso.py"
   - cmd: echo     Mycelyso().main() >> runmycelyso.py"
   #
-  - cmd: pyinstaller runmycelyso.py -n mycelyso -d --exclude-module tcl --exclude-module tk --exclude-module _tkinter --exclude-module tkinter --exclude-module Tkinter --exclude-module opencv --exclude-module PyQt5 --exclude-module PySide --exclude-module cv2
+  - cmd: pyinstaller runmycelyso.py -n mycelyso -d --exclude-module tcl --exclude-module tk --exclude-module _tkinter --exclude-module tkinter --exclude-module Tkinter --exclude-module opencv --exclude-module cv2
+  #--exclude-module PyQt5 --exclude-module PySide
   - cmd: rd /s /q .\dist\mycelyso\Include
   # would be nice to get rid of more unnecessary parts of the bundle, but pyinstaller bundled programs seem to be very fragile
 
