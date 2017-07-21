@@ -5,7 +5,6 @@ image: Visual Studio 2017
 clone_depth: 1
 
 environment:
-  ARTIFACT: mycelyso-windows64.zip
   CONDA: C:\Miniconda36-x64
 
 
@@ -20,9 +19,9 @@ after_build:
   - cmd: >
           7z
           a
-          %ARTIFACT%
+          mycelyso-windows64.zip
           ".appveyor.yml"
 
 artifacts:
-  - path: %ARTIFACT%
+  - path: mycelyso-windows64.zip
 
