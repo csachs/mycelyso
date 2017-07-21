@@ -26,8 +26,8 @@ build_script:
   - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso > mycelyso.py
   - cmd: "echo if __name__ == '__main__': >> mycelyso.py"
   - cmd: echo     Mycelyso().main() >> mycelyso.py"
+  - cmd: python mycelyso.py && exit 0
   - cmd: pyinstaller mycelyso.py
-  - cmd: dir
 
 after_build:
   - cmd: >
