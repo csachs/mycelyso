@@ -25,7 +25,7 @@ build_script:
   - cmd: echo from pyasn1.codec.der.encoder import encode as der_encode >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.decoder import decode as der_decode >> runmycelyso.py
   - cmd: echo from pyasn1.codec.native.encoder import encode as native_encode >> runmycelyso.py
-  - cmd: from tunables.tunable.schema import tunable_schema as schema, ASN1_SCHEMA_VERSION >> runmycelyso.py
+  - cmd: echo from tunables.tunable.schema import tunable_schema as schema, ASN1_SCHEMA_VERSION >> runmycelyso.py
   - cmd: echo import molyso >> runmycelyso.py
   - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso >> runmycelyso.py
   - cmd: "echo if __name__ == '__main__': >> runmycelyso.py"
