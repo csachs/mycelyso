@@ -17,7 +17,7 @@ before_build:
 
 build_script:
   - cmd: conda install -y molyso
-  - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx tables numexpr pandas tunable tqdm
+  - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm
   - cmd: pip install mfisp_boxdetection
   - cmd: python setup.py install
   - cmd: python -m mycelyso
