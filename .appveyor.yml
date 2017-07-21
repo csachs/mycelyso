@@ -22,8 +22,8 @@ build_script:
   - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm mfisp-boxdetection
   - cmd: python setup.py install
   - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso > mycelyso.py
-  - cmd: echo if __name__ == '__main__': >> mycelyso.py
-  - cmd: echo     Mycelyso().main() >> mycelyso.py
+  - cmd: "echo if __name__ == '__main__': >> mycelyso.py"
+  - cmd: echo     Mycelyso().main() >> mycelyso.py"
   - cmd: pyinstaller mycelyso.py
   - cmd: dir
 
