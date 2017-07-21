@@ -14,14 +14,18 @@ before_build:
   - cmd: conda config --add channels bioconda
   - cmd: conda config --add channels csachs
   - cmd: conda update -y conda
+  # unfortunately current pyinstaller in conda does not work with python 3.6
+  - cmd: pip install git+https://github.com/pyinstaller/pyinstaller
 
 build_script:
   - cmd: conda install -y molyso
-  - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm
-  - cmd: pip install mfisp_boxdetection
+  - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm mfisp-boxdetection
   - cmd: python setup.py install
-  - cmd: python -m mycelyso
-  - cmd: python -V
+  - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso > mycelyso.py
+  - cmd: echo if __name__ == '__main__': >> mycelyso.py
+  - cmd: echo     Mycelyso().main() >> mycelyso.py
+  - cmd: pyinstaller mycelyso.py
+  - cmd: dir
 
 after_build:
   - cmd: >
