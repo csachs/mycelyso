@@ -17,7 +17,6 @@ before_build:
 
 build_script:
   - cmd: conda install -y molyso
-  - cmd: python -m molyso
   - cmd: python setup.py install
   - cmd: python -m mycelyso
   - cmd: python -V
