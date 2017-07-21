@@ -22,14 +22,17 @@ build_script:
   - cmd: python setup.py install
   - cmd: del %CONDA%\Scripts\molyso.py
   #
+  - cmd: echo import multiprocessing >> runmycelyso.py
   - cmd: echo import pyasn1 >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.encoder import encode as der_encode >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.decoder import decode as der_decode >> runmycelyso.py
   - cmd: echo from pyasn1.codec.native.encoder import encode as native_encode >> runmycelyso.py
-  - cmd: echo from tunables.tunable.schema import tunable_schema as schema, ASN1_SCHEMA_VERSION >> runmycelyso.py
+  - cmd: echo from tunable.schema import tunable_schema as schema, ASN1_SCHEMA_VERSION >> runmycelyso.py
   - cmd: echo import molyso >> runmycelyso.py
+  - cmd: echo import pywt._extensions._cwt >> runmycelyso.py
   - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso >> runmycelyso.py
   - cmd: "echo if __name__ == '__main__': >> runmycelyso.py"
+  - cmd: echo     multiprocessing.freeze_support() >> runmycelyso.py"
   - cmd: echo     Mycelyso().main() >> runmycelyso.py"
   #
   - cmd: pyinstaller runmycelyso.py -n mycelyso -d --exclude-module tcl --exclude-module tk --exclude-module _tkinter --exclude-module tkinter --exclude-module Tkinter --exclude-module opencv --exclude-module PyQt5 --exclude-module PySide --exclude-module cv2
@@ -46,5 +49,5 @@ after_build:
 artifacts:
   - path: mycelyso-windows64.zip
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
