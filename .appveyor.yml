@@ -7,6 +7,8 @@ clone_depth: 1
 environment:
   CONDA: C:\Miniconda36-x64
 
+cache:
+  - C:\Miniconda36-x64\pkgs
 
 before_build:
   - cmd: set PATH=%CONDA%;%CONDA%\Scripts;%CONDA%\Library\bin;%PATH%
@@ -32,7 +34,7 @@ after_build:
           7z
           a
           mycelyso-windows64.zip
-          ".appveyor.yml"
+          .\dist\mycelyso\*
 
 artifacts:
   - path: mycelyso-windows64.zip
