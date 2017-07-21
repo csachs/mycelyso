@@ -26,7 +26,6 @@ build_script:
   - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso > mycelyso.py
   - cmd: "echo if __name__ == '__main__': >> mycelyso.py"
   - cmd: echo     Mycelyso().main() >> mycelyso.py"
-  - cmd: python mycelyso.py && exit 0
   - cmd: pyinstaller mycelyso.py
 
 after_build:
@@ -39,3 +38,5 @@ after_build:
 artifacts:
   - path: mycelyso-windows64.zip
 
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
