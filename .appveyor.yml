@@ -21,6 +21,7 @@ build_script:
   - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm mfisp-boxdetection pyasn1
   - cmd: conda install -y mpld3
   - cmd: pip install mycelyso-inspector
+  - cmd: wget https://raw.githubusercontent.com/modsim/mycelyso-inspector/master/mycelyso_inspector/inspector.py -O %CONDA%\Lib\site-packages\mycelyso_inspector\inspector.py
   - cmd: python setup.py install
   - cmd: del %CONDA%\Scripts\molyso.py
   # this is the starter, full of implicit exports to steer pyinstaller into the right direction
@@ -48,6 +49,8 @@ build_script:
   #--exclude-module PyQt5 --exclude-module PySide
   - cmd: rd /s /q .\dist\mycelyso\Include
   - cmd: rd /s /q .\dist\mycelyso_inspector\Include
+  - ps: Copy-Item -Recurse %CONDA%\Lib\site-packages\mycelyso_inspector\static .\dist\mycelyso_inspector\
+  - ps: Copy-Item -Recurse .\dist\mycelyso_inspector\* .\dist\mycelyso\
   # would be nice to get rid of more unnecessary parts of the bundle, but pyinstaller bundled programs seem to be very fragile
 
 after_build:
@@ -56,7 +59,6 @@ after_build:
           a
           mycelyso-windows64.zip
           .\dist\mycelyso
-          .\dist\mycelyso_inspector
 
 artifacts:
   - path: mycelyso-windows64.zip
