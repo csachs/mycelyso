@@ -53,7 +53,7 @@ build_script:
   - ps: Copy-Item -Recurse $env:CONDA\Lib\site-packages\mpld3 .\dist\mycelyso_inspector\
   # rather silly
   - ps: Copy-Item -Recurse -Force .\dist\mycelyso\* .\dist\mycelyso_inspector\
-  - ps: Copy-Item -Recurse .\dist\mycelyso_inspector\* .\dist\mycelyso\
+  - ps: Copy-Item -Recurse -Force .\dist\mycelyso_inspector\* .\dist\mycelyso\
   # would be nice to get rid of more unnecessary parts of the bundle, but pyinstaller bundled programs seem to be very fragile
 
 after_build:
