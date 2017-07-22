@@ -19,13 +19,11 @@ before_build:
 build_script:
   - cmd: conda install -y molyso
   - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm mfisp-boxdetection pyasn1
+  - cmd: conda install -y mpld3
   - cmd: pip install mycelyso-inspector
   - cmd: python setup.py install
   - cmd: del %CONDA%\Scripts\molyso.py
   # this is the starter, full of implicit exports to steer pyinstaller into the right direction
-  - cmd: echo import sys >> runmycelyso.py
-  - cmd: echo import png >> runmycelyso.py
-  - cmd: echo import mycelyso_inspector.inspector >> runmycelyso.py
   - cmd: echo import multiprocessing >> runmycelyso.py
   - cmd: echo import pyasn1 >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.encoder import encode as der_encode >> runmycelyso.py
@@ -37,15 +35,19 @@ build_script:
   - cmd: echo from mycelyso.highlevel.pipeline import Mycelyso >> runmycelyso.py
   - cmd: "echo if __name__ == '__main__': >> runmycelyso.py"
   - cmd: "echo     multiprocessing.freeze_support() >> runmycelyso.py"
-  - cmd: "echo     if len(sys.argv) > 1 and sys.argv[1] == 'inspector': >> runmycelyso.py"
-  - cmd: "echo         del sys.argv[1] >> runmycelyso.py"
-  - cmd: "echo         mycelyso_inspector.inspector.main() >> runmycelyso.py"
-  - cmd: "echo     else: >> runmycelyso.py"
-  - cmd: "echo         Mycelyso().main() >> runmycelyso.py"
+  - cmd: "echo     Mycelyso().main() >> runmycelyso.py"
+  #
+  - cmd: echo import sys >> runmycelysoinspector.py
+  - cmd: echo import png.png >> runmycelysoinspector.py
+  - cmd: echo import mycelyso_inspector.inspector >> runmycelysoinspector.py
+  - cmd: "echo if __name__ == '__main__': >> runmycelysoinspector.py"
+  - cmd: "echo     mycelyso_inspector.inspector.main() >> runmycelysoinspector.py"
   #
   - cmd: pyinstaller runmycelyso.py -n mycelyso --exclude-module tcl --exclude-module tk --exclude-module _tkinter --exclude-module tkinter --exclude-module Tkinter --exclude-module opencv --exclude-module cv2
+  - cmd: pyinstaller runmycelysoinspector.py -n mycelyso_inspector --exclude-module tcl --exclude-module tk --exclude-module _tkinter --exclude-module tkinter --exclude-module Tkinter --exclude-module opencv --exclude-module cv2
   #--exclude-module PyQt5 --exclude-module PySide
   - cmd: rd /s /q .\dist\mycelyso\Include
+  - cmd: rd /s /q .\dist\mycelyso_inspector\Include
   # would be nice to get rid of more unnecessary parts of the bundle, but pyinstaller bundled programs seem to be very fragile
 
 after_build:
@@ -54,9 +56,10 @@ after_build:
           a
           mycelyso-windows64.zip
           .\dist\mycelyso
+          .\dist\mycelyso_inspector
 
 artifacts:
   - path: mycelyso-windows64.zip
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
