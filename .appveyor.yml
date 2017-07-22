@@ -49,8 +49,8 @@ build_script:
   #--exclude-module PyQt5 --exclude-module PySide
   - cmd: rd /s /q .\dist\mycelyso\Include
   - cmd: rd /s /q .\dist\mycelyso_inspector\Include
-  - ps: Copy-Item -Recurse %CONDA%\Lib\site-packages\mycelyso_inspector\static .\dist\mycelyso_inspector\
-  - ps: Copy-Item -Recurse %CONDA%\Lib\site-packages\mpld3 .\dist\mycelyso_inspector\
+  - ps: Copy-Item -Recurse $env:CONDA\Lib\site-packages\mycelyso_inspector\static .\dist\mycelyso_inspector\
+  - ps: Copy-Item -Recurse $env:CONDA\Lib\site-packages\mpld3 .\dist\mycelyso_inspector\
   - ps: Copy-Item -Recurse .\dist\mycelyso_inspector\* .\dist\mycelyso\
   # would be nice to get rid of more unnecessary parts of the bundle, but pyinstaller bundled programs seem to be very fragile
 
