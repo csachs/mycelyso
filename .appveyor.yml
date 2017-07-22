@@ -19,8 +19,6 @@ before_build:
 build_script:
   - cmd: conda install -y molyso
   - cmd: conda install -y numpy scipy matplotlib nd2file tifffile scikit-image networkx pytables numexpr pandas tunable tqdm mfisp-boxdetection pyasn1
-  - cmd: conda install -y nomkl numpy scipy numexpr
-  - cmd: conda remove -y mkl mkl-service
   - cmd: pip install mycelyso-inspector
   - cmd: python setup.py install
   - cmd: del %CONDA%\Scripts\molyso.py
