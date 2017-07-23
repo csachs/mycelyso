@@ -19,6 +19,8 @@ before_build:
 build_script:
   # first install the latest version, that fetches all deps
   - cmd: conda install -y mycelyso mycelyso-inspector
+  # there seems to be an old version around
+  - cmd: conda update -y pyasn1
   # ... then install the git version. if deps would be missing pip would now try to get'em
   - cmd: python setup.py install
   # this is the starter, full of implicit exports to steer pyinstaller into the right direction
@@ -65,5 +67,5 @@ after_build:
 artifacts:
   - path: mycelyso-windows64.zip
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
