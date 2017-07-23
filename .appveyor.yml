@@ -24,10 +24,10 @@ build_script:
   # this is the starter, full of implicit exports to steer pyinstaller into the right direction
   - cmd: echo import multiprocessing >> runmycelyso.py
   - cmd: echo import pyasn1 >> runmycelyso.py
-  - cmd: echo import pyasn1.codec.der.encoder >> runmycelyso.py
-  - cmd: echo import pyasn1.codec.der.decoder >> runmycelyso.py
-  - cmd: echo import pyasn1.codec.native.encoder >> runmycelyso.py
-  - cmd: echo import tunable.schema >> runmycelyso.py
+  - cmd: echo from pyasn1.codec.der.encoder import encode as der_encode >> runmycelyso.py
+  - cmd: echo from pyasn1.codec.der.decoder import decode as der_decode >> runmycelyso.py
+  - cmd: echo from pyasn1.codec.native.encoder import encode as native_encode >> runmycelyso.py
+  - cmd: echo from tunable.schema import tunable_schema as schema, ASN1_SCHEMA_VERSION >> runmycelyso.py
   - cmd: echo import molyso >> runmycelyso.py
   - cmd: echo import pywt._extensions._cwt >> runmycelyso.py
   - cmd: echo from mycelyso.__main__ import main >> runmycelyso.py
