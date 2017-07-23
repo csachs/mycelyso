@@ -26,7 +26,7 @@ build_script:
   - cmd: echo import pyasn1 >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.encoder import encode as der_encode >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.decoder import decode as der_decode >> runmycelyso.py
-  - cmd: echo from pyasn1.codec.native import encoder >> runmycelyso.py
+  - cmd: echo from pyasn1.codec import native >> runmycelyso.py
   - cmd: echo from pyasn1.codec.native.encoder import encode as native_encode >> runmycelyso.py
   - cmd: echo from tunable.schema import tunable_schema as schema, ASN1_SCHEMA_VERSION >> runmycelyso.py
   - cmd: echo import molyso >> runmycelyso.py
@@ -65,5 +65,5 @@ after_build:
 artifacts:
   - path: mycelyso-windows64.zip
 
-#on_finish:
-#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
