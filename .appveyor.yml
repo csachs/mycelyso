@@ -26,6 +26,7 @@ build_script:
   - cmd: echo import pyasn1 >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.encoder import encode as der_encode >> runmycelyso.py
   - cmd: echo from pyasn1.codec.der.decoder import decode as der_decode >> runmycelyso.py
+  - cmd: echo from pyasn1.codec.native import encoder >> runmycelyso.py
   - cmd: echo from pyasn1.codec.native.encoder import encode as native_encode >> runmycelyso.py
   - cmd: echo from tunable.schema import tunable_schema as schema, ASN1_SCHEMA_VERSION >> runmycelyso.py
   - cmd: echo import molyso >> runmycelyso.py
@@ -37,6 +38,7 @@ build_script:
   #
   - cmd: echo import sys >> runmycelysoinspector.py
   - cmd: echo import png.png >> runmycelysoinspector.py
+  - cmd: echo import png.pngfilters >> runmycelysoinspector.py
   - cmd: echo from mycelyso_inspector.__main__ import main >> runmycelysoinspector.py
   - cmd: "echo if __name__ == '__main__': >> runmycelysoinspector.py"
   - cmd: "echo     main() >> runmycelysoinspector.py"
