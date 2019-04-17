@@ -8,12 +8,13 @@ environment:
   CONDA: C:\Miniconda36-x64
 
 before_build:
-  - cmd: set PATH=%CONDA%;%CONDA%\Scripts;%CONDA%\Library\bin;%PATH%
+  - cmd: set PATH=%CONDA%;%CONDA%\Scripts;%CONDA%\Library\bin;%CONDA%\Library\mingw-w64\bin;%PATH%
   - cmd: conda config --add channels conda-forge
   - cmd: conda config --add channels bioconda
   - cmd: conda config --add channels csachs
   - cmd: conda update -y conda
-  - cmd: pip install https://github.com/pyinstaller/pyinstaller/archive/b54a15d72e81e39cde0811d2b7442b09e658801d.zip
+  # pyinstaller is currently not working in conjunction with mycelyso, hopefully a pinned commit will resolve this
+  - cmd: pip install https://github.com/pyinstaller/pyinstaller/archive/15770dadce1227b6772aac68f08ad8eed3d13f99.zip
 
 build_script:
   # first install the latest version, that fetches all deps
@@ -34,7 +35,6 @@ build_script:
   - cmd: echo from tunable.schema import tunable_schema as schema, ASN1_SCHEMA_VERSION >> runmycelyso.py
   - cmd: echo import molyso >> runmycelyso.py
   - cmd: echo import pywt._extensions._cwt >> runmycelyso.py
-  - cmd: echo import numpy >> runmycelyso.py
   - cmd: echo import scipy >> runmycelyso.py
   - cmd: echo import pandas >> runmycelyso.py
   - cmd: echo from mycelyso.__main__ import main >> runmycelyso.py
@@ -43,7 +43,6 @@ build_script:
   - cmd: "echo     main() >> runmycelyso.py"
   #
   - cmd: echo import sys >> runmycelysoinspector.py
-  - cmd: echo import numpy >> runmycelysoinspector.py
   - cmd: echo import png.png >> runmycelysoinspector.py
   - cmd: echo import png.pngfilters >> runmycelysoinspector.py
   - cmd: echo from mycelyso_inspector.__main__ import main >> runmycelysoinspector.py
